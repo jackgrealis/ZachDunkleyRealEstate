@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="font-sans antialiased">
         <Navbar />
         {children}
         <footer className="bg-harcourts-darkBlue text-white py-8 text-center">
-          <p>© {new Date().getFullYear()} Zach Dunkley | Harcourts Rotorua</p>
+          <p className="text-sm opacity-80">© {new Date().getFullYear()} Zach Dunkley | Harcourts Rotorua</p>
         </footer>
       </body>
     </html>
