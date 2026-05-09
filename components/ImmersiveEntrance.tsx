@@ -9,14 +9,15 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // Door animations: Zooms in dramatically to create an "entry" effect
-  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 8]);
+  // Door animations: Split open and zoom in
+  const doorXLeft = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
+  const doorXRight = useTransform(scrollYProgress, [0, 0.3], ["0%", "100%"]);
+  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.5]);
   const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
-  const doorY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
   
   // Interior animations: Zooms in and becomes the main view
-  const interiorScale = useTransform(scrollYProgress, [0.2, 0.8], [0.8, 1]);
-  const interiorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+  const interiorScale = useTransform(scrollYProgress, [0, 0.3], [1.2, 1]);
+  const interiorOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
@@ -90,16 +91,35 @@ export default function ImmersiveEntrance() {
             </div>
           </div>
         </motion.div>
-        {/* Layer 1: The Door */}
+        {/* Layer 1: The Opening Doors */}
         <motion.div 
-          style={{ scale: doorScale, opacity: doorOpacity, y: doorY }}
-          className="absolute inset-0 z-20 flex items-center justify-center"
+          style={{ scale: doorScale, opacity: doorOpacity }}
+          className="absolute inset-0 z-20 flex overflow-hidden"
         >
-          <img 
-            src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
-            alt="Welcome Door" 
-            className="w-full h-full object-cover"
-          />
+          {/* Left Door Panel */}
+          <motion.div 
+            style={{ x: doorXLeft }}
+            className="w-1/2 h-full relative overflow-hidden"
+          >
+            <img 
+              src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
+              alt="Door Left" 
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'left' }}
+            />
+          </motion.div>
+          {/* Right Door Panel */}
+          <motion.div 
+            style={{ x: doorXRight }}
+            className="w-1/2 h-full relative overflow-hidden"
+          >
+            <img 
+              src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
+              alt="Door Right" 
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'right' }}
+            />
+          </motion.div>
         </motion.div>
         {/* Scroll Prompt */}
         <motion.div 
