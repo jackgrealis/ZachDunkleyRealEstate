@@ -9,9 +9,10 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // Door animations: Scales up and fades out
-  const doorScale = useTransform(scrollYProgress, [0, 0.4], [1, 2.5]);
-  const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
+  // Door animations: Zooms in dramatically to create an "entry" effect
+  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 8]);
+  const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
+  const doorY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
   
   // Interior animations: Zooms in and becomes the main view
   const interiorScale = useTransform(scrollYProgress, [0.2, 0.8], [0.8, 1]);
@@ -91,11 +92,11 @@ export default function ImmersiveEntrance() {
         </motion.div>
         {/* Layer 1: The Door */}
         <motion.div 
-          style={{ scale: doorScale, opacity: doorOpacity }}
+          style={{ scale: doorScale, opacity: doorOpacity, y: doorY }}
           className="absolute inset-0 z-20 flex items-center justify-center"
         >
           <img 
-            src="https://img.freepik.com/free-photo/3d-rendering-cartoon-welcome-door_23-2151645374.jpg?semt=ais_hybrid&w=740&q=80" 
+            src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
             alt="Welcome Door" 
             className="w-full h-full object-cover"
           />
