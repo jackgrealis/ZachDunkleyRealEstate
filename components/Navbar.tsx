@@ -5,9 +5,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
-            <span className="text-harcourts-blue font-bold text-xl tracking-tight">
-              ZACH DUNKLEY <span className="text-gray-400 font-light">| Harcourts</span>
-            </span>
+            <Link href="/" className="flex items-center gap-2">
+              <img 
+                src="https://resources.cloudhi.io/images/logo/harcourts-international-logo.svg" 
+                alt="Harcourts Logo" 
+                className="h-8 w-auto"
+              />
+              <span className="text-harcourts-blue font-bold text-sm hidden sm:block border-l pl-2 border-gray-300">
+                ZACH DUNKLEY
+              </span>
+            </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
