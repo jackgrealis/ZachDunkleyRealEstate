@@ -9,15 +9,13 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // Door animations: Split open and zoom in
-  const doorXLeft = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
-  const doorXRight = useTransform(scrollYProgress, [0, 0.3], ["0%", "100%"]);
-  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.5]);
+  // Portal Zoom animations
+  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 10]);
   const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
   
-  // Interior animations: Zooms in and becomes the main view
-  const interiorScale = useTransform(scrollYProgress, [0, 0.3], [1.2, 1]);
-  const interiorOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  // Interior animations: Starts small (portal size) and zooms to full screen
+  const interiorScale = useTransform(scrollYProgress, [0, 0.3], [0.1, 1]);
+  const interiorOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
@@ -91,35 +89,22 @@ export default function ImmersiveEntrance() {
             </div>
           </div>
         </motion.div>
-        {/* Layer 1: The Opening Doors */}
+        {/* Layer 1: The Portal Door */}
         <motion.div 
           style={{ scale: doorScale, opacity: doorOpacity }}
-          className="absolute inset-0 z-20 flex overflow-hidden"
+          className="absolute inset-0 z-20 flex items-center justify-center"
         >
-          {/* Left Door Panel */}
-          <motion.div 
-            style={{ x: doorXLeft }}
-            className="w-1/2 h-full relative overflow-hidden"
-          >
+          <div className="relative w-full h-full overflow-hidden">
             <img 
               src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
-              alt="Door Left" 
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'left' }}
+              alt="Portal Door" 
+              className="w-full h-full object-cover"
             />
-          </motion.div>
-          {/* Right Door Panel */}
-          <motion.div 
-            style={{ x: doorXRight }}
-            className="w-1/2 h-full relative overflow-hidden"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
-              alt="Door Right" 
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'right' }}
-            />
-          </motion.div>
+            {/* Inner "Hole" for the portal effect */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-64 h-96 bg-black rounded-t-full shadow-[0_0_50px_rgba(0,0,0,0.8)]" />
+            </div>
+          </div>
         </motion.div>
         {/* Scroll Prompt */}
         <motion.div 
