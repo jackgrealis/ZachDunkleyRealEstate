@@ -1,7 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { properties } from "@/data/properties";
+import { properties } from "../data/properties";
 export default function ImmersiveEntrance() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isBioOpen, setIsBioOpen] = useState(false);
