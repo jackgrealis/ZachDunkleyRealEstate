@@ -27,6 +27,7 @@ export default function ImmersiveEntrance() {
   const uiScale = useTransform(scrollYProgress, [0.4, 0.6], [0.9, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
+  const doorImg = "https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg";
   return (
     <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
@@ -120,35 +121,20 @@ export default function ImmersiveEntrance() {
           style={{ scale: exteriorZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
-          <div className="relative w-full h-full overflow-hidden">
-            {/* The Base: The eBoss Photo (Single, non-splitting image) */}
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center"
-               style={{ backgroundImage: `url('https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg')` }}
-            />
-            {/* The Doorway Window: Confines the interior to the door size */}
+          {/* The Base: The eBoss Photo as a single, solid wall */}
+          <div className="absolute inset-0 w-full h-full bg-cover bg-center"
+               style={{ backgroundImage: `url('${doorImg}')` }}
+          />
+          {/* The Door: A precision crop of the same image, swinging on a hinge */}
+          <motion.div 
+            style={{ rotateY: doorRotateY }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[32%] h-[72%] overflow-hidden origin-left shadow-2xl"
+          >
             <div 
-              className="absolute z-10 overflow-hidden bg-white/20 backdrop-blur-sm"
-              style={{ 
-                left: '34%', 
-                top: '16%', 
-                width: '32%', 
-                height: '72%' 
-              }}
-            >
-              {/* The Door: Swings inward on the left hinge */}
-              <motion.div 
-                style={{ rotateY: doorRotateY }}
-                className="absolute inset-0 w-full h-full overflow-hidden origin-left shadow-2xl"
-              >
-                <img 
-                  src="https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg" 
-                  alt="Door" 
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center' }}
-                />
-              </motion.div>
-            </div>
-          </div>
+              className="absolute inset-0 w-full h-full bg-cover bg-center"
+              style={{ backgroundImage: `url('${doorImg}')` }}
+            />
+          </motion.div>
         </motion.div>
         {/* Scroll Prompt */}
         <motion.div 
