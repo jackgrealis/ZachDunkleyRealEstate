@@ -9,18 +9,13 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // 1. Door Swing: Single door rotating away from user on left hinge
+  // 1. Door Swing: Single door rotating inward (away from user) on left hinge
   const doorRotateY = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  // 2. The "Opposing Zoom" Sequence:
-  // Exterior (Wall/Door) zooms IN to dive through the threshold
-  const exteriorZoom = useTransform(scrollYProgress, [0, 0.3], [1, 4]);
-  // Interior (Lounge) zooms OUT to create the "getting bigger" expansion effect
-  const interiorZoom = useTransform(scrollYProgress, [0, 0.3], [4, 1]);
+  // 2. The "Walk-In" Zoom: Zooms in as you enter, then settles
+  const globalZoom = useTransform(scrollYProgress, [0, 0.4], [1, 3]);
   
-  // Transition to final state (Scale 1) after passing threshold
-  const finalZoom = useTransform(scrollYProgress, [0.3, 0.6], [1, 1]);
-  // 3. The Frosting Transition (with Purple Brand Accents)
+  // 3. The Frosting Transition: Fades in as the door disappears
   const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
   const frostBlur = useTransform(scrollYProgress, [0.3, 0.5], ["blur(0px)", "blur(15px)"]);
   
@@ -33,22 +28,22 @@ export default function ImmersiveEntrance() {
     <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
         
-        {/* Layer 1: The Luxury Interior (Deepest Layer) */}
+        {/* Layer 1: The Frosted Interior (Deepest Layer) */}
         <motion.div 
-          style={{ scale: interiorZoom }}
+          style={{ scale: globalZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* User-Provided Interior Lounge */}
+          {/* Airy, bright interior background */}
           <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvBRyA8LTYUArdhHmPv0AsmiSYcj7dcajJZg&s" 
+              src="https://images.unsplash.com/photo-1600607687940-467f5d95d95d?auto=format&fit=crop&q=80&w=2000" 
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-            {/* The Frosting Layer - Royal Purple Tint */}
+            {/* The Frosting Layer - Subtle Royal Purple Tint */}
             <motion.div 
               style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
-              className="absolute inset-0 bg-purple-100/30 z-10"
+              className="absolute inset-0 bg-purple-50/40 z-10"
             />
           </div>
           {/* Content UI - Fades in after frosting */}
@@ -121,36 +116,27 @@ export default function ImmersiveEntrance() {
             </div>
           </motion.div>
         </motion.div>
-        {/* Layer 2: The Masked Wall and Single Swinging Door */}
+        {/* Layer 2: The Exterior Wall and Single Swinging Door */}
         <motion.div 
-          style={{ scale: exteriorZoom, opacity: doorOpacity }}
+          style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
-          <div className="relative w-full h-full overflow-hidden">
-            {/* The Wall: Your provided photo with a perfect SVG cutout for the door */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center"
-              style={{ 
-                backgroundImage: `url('https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946')`,
-                maskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
-                maskComposite: 'exclude',
-                WebkitMaskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
-                WebkitMaskComposite: 'destination-out'
-              }}
+          {/* The laer base: The eBoss Photo */}
+          <div className="absolute inset-0 w-full h-full bg-cover bg-center"
+               style={{ backgroundImage: `url('https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946')` }}
+          />
+          {/* The Door: Perfectly aligned overlay that swings inward */}
+          <motion.div 
+            style={{ rotateY: doorRotateY }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] overflow-hidden origin-left shadow-2xl"
+          >
+            <img 
+              src="https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946" 
+              alt="Door" 
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center' }}
             />
-            {/* The Door: Swings open on the left hinge exactly within the cutout */}
-            <motion.div 
-              style={{ rotateY: doorRotateY }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] overflow-hidden origin-left shadow-2xl"
-            >
-              <img 
-                src="https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946" 
-                alt="Door" 
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center' }}
-              />
-            </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
         {/* Scroll Prompt */}
         <motion.div 
