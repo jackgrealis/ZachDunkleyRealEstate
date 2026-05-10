@@ -9,19 +9,18 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // 1. 3D Door Swing: Rotating on the Y-axis from the outer edges of the FRAME
-  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -110]);
-  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 110]);
+  // 1. 3D Door Swing: Single door rotating away from user on left hinge
+  const doorRotateY = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  // 2. The Cinematic Camera Sequence:
-  // Stage A: Zoom IN (0 -> 0.3) - simulate walking through the doorway
-  // Stage B: Zoom OUT (0.3 -> 0.6) - expand the room to reveal its space
+  // 2. The "Swoosh" Camera Sequence:
+  // Stage A: Zoom IN (0 -> 0.3) - Dive through the doorway
+  // Stage B: Zoom OUT (0.3 -> 0.6) - Expand the room to reveal space
   const globalZoom = useTransform(
     scrollYProgress, 
     [0, 0.3, 0.6], 
-    [1, 3, 1] 
+    [1, 4, 1] 
   );
-  // 3. Frosting Effect: Room blurs and fades to a light overlay
+  // 3. The Frosting Transition (with Purple Accents)
   const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
   const frostBlur = useTransform(scrollYProgress, [0.3, 0.5], ["blur(0px)", "blur(15px)"]);
   
@@ -34,19 +33,19 @@ export default function ImmersiveEntrance() {
     <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
         
-        {/* Layer 1: The Luxury Interior (The Room) */}
+        {/* Layer 1: The Luxury Interior (Deepest Layer) */}
         <motion.div 
           style={{ scale: globalZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* High-Res Interior Background */}
+          {/* High-Res Bright Luxury Interior */}
           <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://cdn.home-designing.com/wp-content/uploads/2022/03/modern-sofa.jpg" 
+              src="https://images.unsplash.com/photo-1600607687940-467f5d95d95d?auto=format&fit=crop&q=80&w=2000" 
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-            {/* The Frosting Layer */}
+            {/* The Frosting Layer - Subtle Purple Tint */}
             <motion.div 
               style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
               className="absolute inset-0 bg-white/40 z-10"
@@ -73,7 +72,7 @@ export default function ImmersiveEntrance() {
                 <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
                   {forSale.length > 0 ? (
                     forSale.map(p => (
-                      <div key={p.id} className="bg-white/90 p-4 rounded-lg shadow-xl border-l-4 border-harcourts-blue">
+                      <div key={p.id} className="bg-white/90 p-4 rounded-lg shadow-xl border-l-4 border-purple-600">
                         <p className="font-bold text-slate-800">{p.title}</p>
                         <p className="text-sm text-slate-500">{p.address}</p>
                       </div>
@@ -90,7 +89,7 @@ export default function ImmersiveEntrance() {
                   onClick={() => setIsBioOpen(true)}
                   className="relative cursor-pointer group"
                 >
-                  <div className="absolute -inset-2 bg-harcourts-blue rounded-full blur opacity-20 group-hover:opacity-50 transition duration-1000"></div>
+                  <div className="absolute -inset-2 bg-purple-600 rounded-full blur opacity-20 group-hover:opacity-50 transition duration-1000"></div>
                   <img 
                     src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" 
                     alt="Zach Dunkley" 
@@ -122,39 +121,33 @@ export default function ImmersiveEntrance() {
             </div>
           </motion.div>
         </motion.div>
-        {/* Layer 2: The Door Frame and Swinging Doors */}
+        {/* Layer 2: The Door Frame and Single Swinging Door */}
         <motion.div 
           style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
-          {/* The Frame: This ensures the doors don't take up the whole screen */}
-          <div className="relative w-[60%] h-[80%] flex">
-            {/* Left Door Panel */}
+          <div className="relative w-full h-full overflow-hidden">
+            {/* The Wall: Your provided photo with a cutout for the door */}
+            <div 
+              className="absolute inset-0 w-full h-full bg-cover bg-center"
+              style={{ 
+                backgroundImage: `url('https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946')`,
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 30% 0%, 30% 100%, 70% 100%, 70% 0%, 30% 0%)' 
+                // Note: Clip-path is used here to create a visual gap. 
+                // For a pixel-perfect cutout, a custom SVG mask is usually needed, 
+                // but this provides the architectural "hole" for the room.
+              }}
+            />
+            {/* The Door: Swings open on the left hinge */}
             <motion.div 
-              style={{ rotateY: doorRotateLeft }}
-              className="w-1/2 h-full relative overflow-hidden origin-left shadow-2xl"
+              style={{ rotateY: doorRotateY }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[20%] h-[60%] overflow-hidden origin-left shadow-2xl"
             >
-              <div 
-                className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
-                style={{ 
-                  backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
-                  backgroundSize: '200% 100%',
-                  backgroundPosition: '0% 0%'
-                }}
-              />
-            </motion.div>
-            {/* Right Door Panel */}
-            <motion.div 
-              style={{ rotateY: doorRotateRight }}
-              className="w-1/2 h-full relative overflow-hidden origin-right shadow-2xl"
-            >
-              <div 
-                className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
-                style={{ 
-                  backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
-                  backgroundSize: '200% 100%',
-                  backgroundPosition: '100% 0%'
-                }}
+              <img 
+                src="https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946" 
+                alt="Door" 
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center' }}
               />
             </motion.div>
           </div>
