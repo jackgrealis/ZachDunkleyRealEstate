@@ -15,18 +15,17 @@ export default function ImmersiveEntrance() {
   const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 2]);
   const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
   
-  // Interior animations: Zooms in slightly to feel like walking into the room
+  // Interior animations: Room is now visible immediately (opacity 1)
   const interiorScale = useTransform(scrollYProgress, [0, 0.3], [1.1, 1]);
-  const interiorOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         
-        {/* Layer 2: The Interior Room */}
+        {/* Layer 2: The Interior Room - Always visible behind the doors */}
         <motion.div 
-          style={{ scale: interiorScale, opacity: interiorOpacity }}
+          style={{ scale: interiorScale }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
           {/* Luxury Living Room Background */}
