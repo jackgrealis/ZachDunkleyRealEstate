@@ -117,17 +117,17 @@ export default function ImmersiveEntrance() {
           style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
-          {/* The Base: The eBoss Photo (No masks, just the full image) */}
+          {/* The Base: The Provided Entrance Photo */}
           <div className="absolute inset-0 w-full h-full bg-cover bg-center"
-               style={{ backgroundImage: `url('https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946')` }}
+               style={{ backgroundImage: `url('https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg')` }}
           />
           {/* The Door: Perfectly aligned overlay that swings inward */}
           <motion.div 
             style={{ rotateY: doorRotateY }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] overflow-hidden origin-left shadow-2xl"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[32%] h-[72%] overflow-hidden origin-left shadow-2xl"
           >
             <img 
-              src="https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946" 
+              src="https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg" 
               alt="Door" 
               className="w-full h-full object-cover"
               style={{ objectPosition: 'center' }}
