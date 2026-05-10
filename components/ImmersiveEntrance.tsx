@@ -13,8 +13,12 @@ export default function ImmersiveEntrance() {
   const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -110]);
   const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 110]);
   
-  // Camera Zoom: Everything scales up to feel like you're walking forward
-  const globalZoom = useTransform(scrollYProgress, [0, 0.4], [1, 2]);
+  // Camera Zoom: Zoom IN to enter, then Zoom OUT to reveal the space
+  const globalZoom = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 0.6], 
+    [1, 2, 1] 
+  );
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
   // Frosting Effect: Room blurs and fades to a light overlay
   const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
@@ -26,7 +30,7 @@ export default function ImmersiveEntrance() {
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-white">
+    <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1200px" }}>
         
         {/* Layer 1: The Interior Room */}
