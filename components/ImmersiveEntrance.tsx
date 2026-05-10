@@ -9,106 +9,123 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // Door animations: Split open and zoom in
-  const doorXLeft = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
-  const doorXRight = useTransform(scrollYProgress, [0, 0.3], ["0%", "100%"]);
-  const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 2]);
-  const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
+  // Door animations: Swing open on hinges
+  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -110]);
+  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 110]);
   
-  // Interior animations
-  const interiorScale = useTransform(scrollYProgress, [0, 0.3], [1.1, 1]);
+  // Camera Zoom: Everything scales up to feel like you're walking forward
+  const globalZoom = useTransform(scrollYProgress, [0, 0.4], [1, 2]);
+  const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
+  // Frosting Effect: Room blurs and fades to a light overlay
+  const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
+  const frostBlur = useTransform(scrollYProgress, [0.3, 0.5], ["blur(0px)", "blur(12px)"]);
+  
+  // UI Elements Fade-in: Appear after the frosting starts
+  const uiOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+  const uiScale = useTransform(scrollYProgress, [0.4, 0.6], [0.9, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-white">
+    <div ref={containerRef} className="relative h-[500vh] bg-black">
+      <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1200px" }}>
         
-        {/* Layer 1: The Interior Room - The foundation */}
+        {/* Layer 1: The Interior Room */}
         <motion.div 
-          style={{ scale: interiorScale }}
+          style={{ scale: globalZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* Luxury Living Room Background - No gaps, no black overlays */}
-          <div className="absolute inset-0 z-[-1]">
+          {/* Living Room Background */}
+          <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://images.unsplash.com/photo-1600210492486-72465976b670?auto=format&fit=crop&q=80&w=2000" 
+              src="https://cdn.home-designing.com/wp-content/uploads/2022/03/modern-sofa.jpg" 
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-          </div>
-          {/* Harcourts Logo/Header */}
-          <div className="absolute top-12 flex flex-col items-center gap-2 z-20">
-            <img 
-              src="https://www.harcourts.co.nz/assets/images/logo.png" 
-              alt="Harcourts Logo" 
-              className="h-16 object-contain brightness-0 invert"
+            {/* The Frosting Layer */}
+            <motion.div 
+              style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
+              className="absolute inset-0 bg-white/40 z-10"
             />
-            <div className="h-1 w-24 bg-white" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center max-w-7xl w-full z-20">
-            {/* For Sale Column */}
-            <div className="flex flex-col gap-6 order-2 md:order-1">
-              <h2 className="text-3xl font-bold text-white text-center mb-4 uppercase tracking-widest drop-shadow-lg">For Sale</h2>
-              <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
-                {forSale.length > 0 ? (
-                  forSale.map(p => (
-                    <div key={p.id} className="bg-white/90 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-harcourts-blue">
-                      <p className="font-bold text-slate-800">{p.title}</p>
-                      <p className="text-sm text-slate-500">{p.address}</p>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-center text-white/70 italic">No current listings</p>
-                )}
+          {/* Content UI - Fades in after frosting */}
+          <motion.div 
+            style={{ opacity: uiOpacity, scale: uiScale }}
+            className="relative z-20 w-full h-full flex flex-col items-center justify-center"
+          >
+            {/* Harcourts Logo */}
+            <div className="absolute top-12 flex flex-col items-center gap-2">
+              <img 
+                src="https://www.harcourts.co.nz/assets/images/logo.png" 
+                alt="Harcourts Logo" 
+                className="h-16 object-contain"
+              />
+              <div className="h-1 w-24 bg-harcourts-blue" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center max-w-7xl w-full">
+              {/* For Sale Column */}
+              <div className="flex flex-col gap-6 order-2 md:order-1">
+                <h2 className="text-3xl font-bold text-harcourts-blue text-center mb-4 uppercase tracking-widest">For Sale</h2>
+                <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
+                  {forSale.length > 0 ? (
+                    forSale.map(p => (
+                      <div key={p.id} className="bg-white/90 p-4 rounded-lg shadow-xl border-l-4 border-harcourts-blue">
+                        <p className="font-bold text-slate-800">{p.title}</p>
+                        <p className="text-sm text-slate-500">{p.address}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-center text-slate-400 italic">No current listings</p>
+                  )}
+                </div>
+              </div>
+              {/* User Photo */}
+              <div className="flex flex-col items-center gap-6 order-1 md:order-2">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => setIsBioOpen(true)}
+                  className="relative cursor-pointer group"
+                >
+                  <div className="absolute -inset-2 bg-harcourts-blue rounded-full blur opacity-20 group-hover:opacity-50 transition duration-1000"></div>
+                  <img 
+                    src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" 
+                    alt="Zach Dunkley" 
+                    className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-2xl"
+                  />
+                </motion.div>
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-harcourts-blue uppercase tracking-tighter">Zach Dunkley</h3>
+                  <p className="text-slate-600 font-medium">Your Trusted Real Estate Partner</p>
+                </div>
+              </div>
+              {/* Sold Column */}
+              <div className="flex flex-col gap-6 order-3">
+                <h2 className="text-3xl font-bold text-harcourts-blue text-center mb-4 uppercase tracking-widest">Solds</h2>
+                <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
+                  {sold.length > 0 ? (
+                    sold.map(p => (
+                      <div key={p.id} className="bg-white/90 p-4 rounded-lg shadow-xl border-l-4 border-slate-400">
+                        <p className="font-bold text-slate-800">{p.title}</p>
+                        <p className="text-sm text-slate-500">{p.address}</p>
+                        <p className="text-xs font-bold text-harcourts-blue mt-1 uppercase">Sold</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-center text-slate-400 italic">No sold listings</p>
+                  )}
+                </div>
               </div>
             </div>
-            {/* User Photo (Center) */}
-            <div className="flex flex-col items-center gap-6 order-1 md:order-2">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                onClick={() => setIsBioOpen(true)}
-                className="relative cursor-pointer group"
-              >
-                <div className="absolute -inset-2 bg-white rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                <img 
-                  src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" 
-                  alt="Zach Dunkley" 
-                  className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-2xl"
-                />
-              </motion.div>
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-white uppercase tracking-tighter drop-shadow-lg">Zach Dunkley</h3>
-                <p className="text-white/90 font-medium drop-shadow-md">Your Trusted Real Estate Partner</p>
-              </div>
-            </div>
-            {/* Sold Column */}
-            <div className="flex flex-col gap-6 order-3">
-              <h2 className="text-3xl font-bold text-white text-center mb-4 uppercase tracking-widest drop-shadow-lg">Solds</h2>
-              <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
-                {sold.length > 0 ? (
-                  sold.map(p => (
-                    <div key={p.id} className="bg-white/90 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-slate-400">
-                      <p className="font-bold text-slate-800">{p.title}</p>
-                      <p className="text-sm text-slate-500">{p.address}</p>
-                      <p className="text-xs font-bold text-harcourts-blue mt-1 uppercase">Sold</p>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-center text-white/70 italic">No sold listings</p>
-                )}
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </motion.div>
-        {/* Layer 2: The Doors - Absolutely covering the screen at start */}
+        {/* Layer 2: The 3D Swinging Doors */}
         <motion.div 
-          style={{ scale: doorScale, opacity: doorOpacity }}
+          style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex"
         >
           {/* Left Door Panel */}
           <motion.div 
-            style={{ x: doorXLeft }}
-            className="absolute left-0 top-0 w-1/2 h-full overflow-hidden"
+            style={{ rotateY: doorRotateLeft }}
+            className="w-1/2 h-full relative overflow-hidden origin-left"
           >
             <img 
               src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
@@ -119,8 +136,8 @@ export default function ImmersiveEntrance() {
           </motion.div>
           {/* Right Door Panel */}
           <motion.div 
-            style={{ x: doorXRight }}
-            className="absolute right-0 top-0 w-1/2 h-full overflow-hidden"
+            style={{ rotateY: doorRotateRight }}
+            className="w-1/2 h-full relative overflow-hidden origin-right"
           >
             <img 
               src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
