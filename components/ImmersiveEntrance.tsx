@@ -9,46 +9,43 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // 1. 3D Door Swing: Rotating on the Y-axis from the outer edges
-  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
-  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 120]);
+  // 1. 3D Door Swing: Rotating on the Y-axis from the outer edges of the FRAME
+  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -110]);
+  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 110]);
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
   // 2. The Cinematic Camera Sequence:
-  // Stage A: Zoom IN (0 -> 0.3) - simulate walking through the door
-  // Stage B: Zoom OUT (0.3 -> 0.6) - expand the room to reveal space
+  // Stage A: Zoom IN (0 -> 0.3) - simulate walking through the doorway
+  // Stage B: Zoom OUT (0.3 -> 0.6) - expand the room to reveal its space
   const globalZoom = useTransform(
     scrollYProgress, 
     [0, 0.3, 0.6], 
-    [1, 2.2, 1] 
+    [1, 3, 1] 
   );
-  // 3. The Frosting Transition:
-  // Fades in after the room has expanded to create a clean UI backdrop
-  const frostOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-  const frostBlur = useTransform(scrollYProgress, [0.4, 0.6], ["blur(0px)", "blur(15px)"]);
+  // 3. Frosting Effect: Room blurs and fades to a light overlay
+  const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
+  const frostBlur = useTransform(scrollYProgress, [0.3, 0.5], ["blur(0px)", "blur(15px)"]);
   
   // 4. UI Elements: Fade in and scale up after frosting
-  const uiOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const uiScale = useTransform(scrollYProgress, [0.5, 0.7], [0.9, 1]);
+  const uiOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+  const uiScale = useTransform(scrollYProgress, [0.4, 0.6], [0.9, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
     <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
         
-        {/* Layer 1: The Luxury Interior */}
+        {/* Layer 1: The Luxury Interior (The Room) */}
         <motion.div 
           style={{ scale: globalZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* High-Res Dark Luxury Background - Matches the dark wood of the door */}
+          {/* High-Res Interior Background */}
           <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://images.unsplash.com/photo-1600607687940-467f5d95d95d?auto=format&fit=crop&q=80&w=2000" 
-              alt="Dark Luxury Interior" 
+              src="https://cdn.home-designing.com/wp-content/uploads/2022/03/modern-sofa.jpg" 
+              alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-            {/* Subtle Color Grading Overlay to blend with the door's richness */}
-            <div className="absolute inset-0 bg-black/20" />
             {/* The Frosting Layer */}
             <motion.div 
               style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
@@ -125,39 +122,42 @@ export default function ImmersiveEntrance() {
             </div>
           </motion.div>
         </motion.div>
-        {/* Layer 2: The 3D Swinging Doors */}
+        {/* Layer 2: The Door Frame and Swinging Doors */}
         <motion.div 
           style={{ scale: globalZoom, opacity: doorOpacity }}
-          className="absolute inset-0 z-30 flex"
+          className="absolute inset-0 z-30 flex items-center justify-center"
         >
-          {/* Left Door Panel - Rotates around its left edge */}
-          <motion.div 
-            style={{ rotateY: doorRotateLeft }}
-            className="w-1/2 h-full relative overflow-hidden origin-left"
-          >
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
-              style={{ 
-                backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
-                backgroundSize: '200% 100%',
-                backgroundPosition: '0% 0%'
-              }}
-            />
-          </motion.div>
-          {/* Right Door Panel - Rotates around its right edge */}
-          <motion.div 
-            style={{ rotateY: doorRotateRight }}
-            className="w-1/2 h-full relative overflow-hidden origin-right"
-          >
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
-              style={{ 
-                backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
-                backgroundSize: '200% 100%',
-                backgroundPosition: '100% 0%'
-              }}
-            />
-          </motion.div>
+          {/* The Frame: This ensures the doors don't take up the whole screen */}
+          <div className="relative w-[60%] h-[80%] flex">
+            {/* Left Door Panel */}
+            <motion.div 
+              style={{ rotateY: doorRotateLeft }}
+              className="w-1/2 h-full relative overflow-hidden origin-left shadow-2xl"
+            >
+              <div 
+                className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
+                style={{ 
+                  backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
+                  backgroundSize: '200% 100%',
+                  backgroundPosition: '0% 0%'
+                }}
+              />
+            </motion.div>
+            {/* Right Door Panel */}
+            <motion.div 
+              style={{ rotateY: doorRotateRight }}
+              className="w-1/2 h-full relative overflow-hidden origin-right shadow-2xl"
+            >
+              <div 
+                className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
+                style={{ 
+                  backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
+                  backgroundSize: '200% 100%',
+                  backgroundPosition: '100% 0%'
+                }}
+              />
+            </motion.div>
+          </div>
         </motion.div>
         {/* Scroll Prompt */}
         <motion.div 
