@@ -9,10 +9,10 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // 1. 3D Door Swing: Single door rotating away from user on left hinge
+  // 1. Door Swing: Single door rotating away from user on left hinge
   const doorRotateY = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  // 2. The "Swoosh" Camera Sequence:
+  // 2. The Cinematic Camera Sequence:
   // Stage A: Zoom IN (0 -> 0.3) - Dive through the doorway
   // Stage B: Zoom OUT (0.3 -> 0.6) - Expand the room to reveal space
   const globalZoom = useTransform(
@@ -45,10 +45,10 @@ export default function ImmersiveEntrance() {
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-            {/* The Frosting Layer - Subtle Purple Tint */}
+            {/* The Frosting Layer - Royal Purple Tint */}
             <motion.div 
               style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
-              className="absolute inset-0 bg-white/40 z-10"
+              className="absolute inset-0 bg-purple-100/30 z-10"
             />
           </div>
           {/* Content UI - Fades in after frosting */}
@@ -121,27 +121,27 @@ export default function ImmersiveEntrance() {
             </div>
           </motion.div>
         </motion.div>
-        {/* Layer 2: The Door Frame and Single Swinging Door */}
+        {/* Layer 2: The Masked Wall and Single Swinging Door */}
         <motion.div 
           style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
           <div className="relative w-full h-full overflow-hidden">
-            {/* The Wall: Your provided photo with a cutout for the door */}
+            {/* The Wall: Your provided photo with a perfect SVG cutout for the door */}
             <div 
               className="absolute inset-0 w-full h-full bg-cover bg-center"
               style={{ 
                 backgroundImage: `url('https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946')`,
-                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 30% 0%, 30% 100%, 70% 100%, 70% 0%, 30% 0%)' 
-                // Note: Clip-path is used here to create a visual gap. 
-                // For a pixel-perfect cutout, a custom SVG mask is usually needed, 
-                // but this provides the architectural "hole" for the room.
+                maskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
+                maskComposite: 'exclude',
+                WebkitMaskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
+                WebkitMaskComposite: 'destination-out'
               }}
             />
-            {/* The Door: Swings open on the left hinge */}
+            {/* The Door: Swings open on the left hinge exactly within the cutout */}
             <motion.div 
               style={{ rotateY: doorRotateY }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[20%] h-[60%] overflow-hidden origin-left shadow-2xl"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] overflow-hidden origin-left shadow-2xl"
             >
               <img 
                 src="https://doorstore.ie/cdn/shop/files/amsterdam-white-primed-3-panel-living-room.jpg?v=1772642233&width=1946" 
