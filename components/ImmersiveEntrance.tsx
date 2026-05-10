@@ -38,10 +38,10 @@ export default function ImmersiveEntrance() {
           style={{ scale: interiorZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* High-Res Bright Luxury Interior */}
+          {/* User-Provided Interior Lounge */}
           <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://images.unsplash.com/photo-1600607687940-467f5d95d95d?auto=format&fit=crop&q=80&w=2000" 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvBRyA8LTYUArdhHmPv0AsmiSYcj7dcajJZg&s" 
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
