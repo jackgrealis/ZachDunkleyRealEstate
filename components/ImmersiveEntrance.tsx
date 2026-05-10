@@ -26,7 +26,7 @@ export default function ImmersiveEntrance() {
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-black">
+    <div ref={containerRef} className="relative h-[500vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1200px" }}>
         
         {/* Layer 1: The Interior Room */}
