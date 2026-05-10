@@ -9,42 +9,46 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // Door animations: Swing open on hinges
-  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -110]);
-  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 110]);
-  
-  // Camera Zoom: Zoom IN to enter, then Zoom OUT to reveal the space
+  // 1. 3D Door Swing: Rotating on the Y-axis from the outer edges
+  const doorRotateLeft = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
+  const doorRotateRight = useTransform(scrollYProgress, [0, 0.3], [0, 120]);
+  const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
+  // 2. The Cinematic Camera Sequence:
+  // Stage A: Zoom IN (0 -> 0.3) - simulate walking through the door
+  // Stage B: Zoom OUT (0.3 -> 0.6) - expand the room to reveal space
   const globalZoom = useTransform(
     scrollYProgress, 
     [0, 0.3, 0.6], 
-    [1, 2, 1] 
+    [1, 2.2, 1] 
   );
-  const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  // Frosting Effect: Room blurs and fades to a light overlay
-  const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
-  const frostBlur = useTransform(scrollYProgress, [0.3, 0.5], ["blur(0px)", "blur(12px)"]);
+  // 3. The Frosting Transition:
+  // Fades in after the room has expanded to create a clean UI backdrop
+  const frostOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+  const frostBlur = useTransform(scrollYProgress, [0.4, 0.6], ["blur(0px)", "blur(15px)"]);
   
-  // UI Elements Fade-in: Appear after the frosting starts
-  const uiOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-  const uiScale = useTransform(scrollYProgress, [0.4, 0.6], [0.9, 1]);
+  // 4. UI Elements: Fade in and scale up after frosting
+  const uiOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
+  const uiScale = useTransform(scrollYProgress, [0.5, 0.7], [0.9, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
     <div ref={containerRef} className="relative h-[600vh] bg-white">
-      <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1200px" }}>
+      <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
         
-        {/* Layer 1: The Interior Room */}
+        {/* Layer 1: The Luxury Interior */}
         <motion.div 
           style={{ scale: globalZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* Living Room Background */}
+          {/* High-Res Dark Luxury Background - Matches the dark wood of the door */}
           <div className="absolute inset-0 z-[-1] overflow-hidden">
             <img 
-              src="https://cdn.home-designing.com/wp-content/uploads/2022/03/modern-sofa.jpg" 
-              alt="Luxury Interior" 
+              src="https://images.unsplash.com/photo-1600607687940-467f5d95d95d?auto=format&fit=crop&q=80&w=2000" 
+              alt="Dark Luxury Interior" 
               className="w-full h-full object-cover"
             />
+            {/* Subtle Color Grading Overlay to blend with the door's richness */}
+            <div className="absolute inset-0 bg-black/20" />
             {/* The Frosting Layer */}
             <motion.div 
               style={{ opacity: frostOpacity, backdropFilter: frostBlur }}
@@ -126,28 +130,32 @@ export default function ImmersiveEntrance() {
           style={{ scale: globalZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex"
         >
-          {/* Left Door Panel */}
+          {/* Left Door Panel - Rotates around its left edge */}
           <motion.div 
             style={{ rotateY: doorRotateLeft }}
             className="w-1/2 h-full relative overflow-hidden origin-left"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
-              alt="Door Left" 
-              className="w-full h-full object-cover"
-              style={{ objectPosition: 'left' }}
+            <div 
+              className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
+              style={{ 
+                backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
+                backgroundSize: '200% 100%',
+                backgroundPosition: '0% 0%'
+              }}
             />
           </motion.div>
-          {/* Right Door Panel */}
+          {/* Right Door Panel - Rotates around its right edge */}
           <motion.div 
             style={{ rotateY: doorRotateRight }}
             className="w-1/2 h-full relative overflow-hidden origin-right"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
-              alt="Door Right" 
-              className="w-full h-full object-cover"
-              style={{ objectPosition: 'right' }}
+            <div 
+              className="absolute inset-0 w-full h-full bg-cover bg-no-repeat"
+              style={{ 
+                backgroundImage: `url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000')`,
+                backgroundSize: '200% 100%',
+                backgroundPosition: '100% 0%'
+              }}
             />
           </motion.div>
         </motion.div>
