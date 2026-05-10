@@ -15,27 +15,26 @@ export default function ImmersiveEntrance() {
   const doorScale = useTransform(scrollYProgress, [0, 0.3], [1, 2]);
   const doorOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
   
-  // Interior animations: Room is now visible immediately (opacity 1)
+  // Interior animations
   const interiorScale = useTransform(scrollYProgress, [0, 0.3], [1.1, 1]);
   const forSale = properties.filter(p => p.status === 'sale');
   const sold = properties.filter(p => p.status === 'sold');
   return (
-    <div ref={containerRef} className="relative h-[400vh] bg-black">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+    <div ref={containerRef} className="relative h-[400vh]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-white">
         
-        {/* Layer 2: The Interior Room - Always visible behind the doors */}
+        {/* Layer 1: The Interior Room - The foundation */}
         <motion.div 
           style={{ scale: interiorScale }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
         >
-          {/* Luxury Living Room Background */}
+          {/* Luxury Living Room Background - No gaps, no black overlays */}
           <div className="absolute inset-0 z-[-1]">
             <img 
               src="https://images.unsplash.com/photo-1600210492486-72465976b670?auto=format&fit=crop&q=80&w=2000" 
               alt="Luxury Interior" 
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
           </div>
           {/* Harcourts Logo/Header */}
           <div className="absolute top-12 flex flex-col items-center gap-2 z-20">
@@ -53,7 +52,7 @@ export default function ImmersiveEntrance() {
               <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
                 {forSale.length > 0 ? (
                   forSale.map(p => (
-                    <div key={p.id} className="bg-white/80 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-harcourts-blue">
+                    <div key={p.id} className="bg-white/90 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-harcourts-blue">
                       <p className="font-bold text-slate-800">{p.title}</p>
                       <p className="text-sm text-slate-500">{p.address}</p>
                     </div>
@@ -88,7 +87,7 @@ export default function ImmersiveEntrance() {
               <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
                 {sold.length > 0 ? (
                   sold.map(p => (
-                    <div key={p.id} className="bg-white/80 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-slate-400">
+                    <div key={p.id} className="bg-white/90 backdrop-blur-md p-4 rounded-lg shadow-xl border-l-4 border-slate-400">
                       <p className="font-bold text-slate-800">{p.title}</p>
                       <p className="text-sm text-slate-500">{p.address}</p>
                       <p className="text-xs font-bold text-harcourts-blue mt-1 uppercase">Sold</p>
@@ -101,32 +100,32 @@ export default function ImmersiveEntrance() {
             </div>
           </div>
         </motion.div>
-        {/* Layer 1: The Opening Doors */}
+        {/* Layer 2: The Doors - Absolutely covering the screen at start */}
         <motion.div 
           style={{ scale: doorScale, opacity: doorOpacity }}
-          className="absolute inset-0 z-20 flex overflow-hidden"
+          className="absolute inset-0 z-30 flex"
         >
           {/* Left Door Panel */}
           <motion.div 
             style={{ x: doorXLeft }}
-            className="w-1/2 h-full relative overflow-hidden"
+            className="absolute left-0 top-0 w-1/2 h-full overflow-hidden"
           >
             <img 
               src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
               alt="Door Left" 
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
               style={{ objectPosition: 'left' }}
             />
           </motion.div>
           {/* Right Door Panel */}
           <motion.div 
             style={{ x: doorXRight }}
-            className="w-1/2 h-full relative overflow-hidden"
+            className="absolute right-0 top-0 w-1/2 h-full overflow-hidden"
           >
             <img 
               src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&q=80&w=2000" 
               alt="Door Right" 
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
               style={{ objectPosition: 'right' }}
             />
           </motion.div>
@@ -134,7 +133,7 @@ export default function ImmersiveEntrance() {
         {/* Scroll Prompt */}
         <motion.div 
           style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
-          className="absolute bottom-12 left-0 right-0 z-30 text-center text-white font-light tracking-[0.2em] uppercase text-xs"
+          className="absolute bottom-12 left-0 right-0 z-40 text-center text-white font-light tracking-[0.2em] uppercase text-xs"
         >
           Scroll to enter
         </motion.div>
