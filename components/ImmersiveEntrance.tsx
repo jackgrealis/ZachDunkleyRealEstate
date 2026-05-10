@@ -9,14 +9,14 @@ export default function ImmersiveEntrance() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  // 1. Door Swing: Single door rotating inward (away from user) on left hinge
+  // 1. Door Swing: Single door rotating away from user on left hinge
   const doorRotateY = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
   const doorOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  // 2. The "Telescopic" Zoom Sequence:
+  // 2. The "Swoosh" Zoom Sequence:
   // Exterior (Wall/Door) zooms IN to dive through the threshold
-  const exteriorZoom = useTransform(scrollYProgress, [0, 0.3], [1, 5]);
+  const exteriorZoom = useTransform(scrollYProgress, [0, 0.3], [1, 4]);
   // Interior (Lounge) zooms OUT to create the "getting bigger" expansion effect
-  const interiorZoom = useTransform(scrollYProgress, [0, 0.3], [5, 1]);
+  const interiorZoom = useTransform(scrollYProgress, [0, 0.3], [4, 1]);
   
   // 3. The Frosting Transition (with Purple Brand Accents)
   const frostOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
@@ -31,7 +31,7 @@ export default function ImmersiveEntrance() {
     <div ref={containerRef} className="relative h-[600vh] bg-white">
       <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ perspective: "1500px" }}>
         
-        {/* Layer 1: The Frosted Interior (The Deepest Layer) */}
+        {/* Layer 1: The Frosted Interior (Deepest Layer) */}
         <motion.div 
           style={{ scale: interiorZoom }}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8"
@@ -115,40 +115,39 @@ export default function ImmersiveEntrance() {
             </div>
           </motion.div>
         </motion.div>
-        {/* Layer 2: The Masked Wall and Single Swinging Door */}
+        {/* Layer 2: The Exterior Wall and Door Overlay */}
         <motion.div 
           style={{ scale: exteriorZoom, opacity: doorOpacity }}
           className="absolute inset-0 z-30 flex items-center justify-center"
         >
           <div className="relative w-full h-full overflow-hidden">
-            
-            {/* The Cavity Depth: Dark gradient that fills the "hole" before the interior is seen */}
-            <div className="absolute inset-0 z-0 flex items-center justify-center">
-               <div className="w-[30%] h-[70%] bg-gradient-to-b from-black/40 to-black/80" />
-            </div>
-            {/* The Wall: Your provided photo with a perfect SVG cutout for the door */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center z-10"
-              style={{ 
-                backgroundImage: `url('https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg')`,
-                maskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
-                maskComposite: 'exclude',
-                WebkitMaskImage: 'linear-gradient(black, black), url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect x=\'35%25\' y=\'15%25\' width=\'30%25\' height=\'70%25\' fill=\'black\' /%3E%3C/svg%3E")',
-                WebkitMaskComposite: 'destination-out'
-              }}
+            {/* The Base: The eBoss Photo (Single, non-splitting image) */}
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center"
+               style={{ backgroundImage: `url('https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg')` }}
             />
-            {/* The Door: Swings open on the left hinge exactly within the cutout */}
-            <motion.div 
-              style={{ rotateY: doorRotateY }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] overflow-hidden origin-left z-20 shadow-2xl"
+            {/* The Doorway Window: Confines the interior to the door size */}
+            <div 
+              className="absolute z-10 overflow-hidden bg-white/20 backdrop-blur-sm"
+              style={{ 
+                left: '34%', 
+                top: '16%', 
+                width: '32%', 
+                height: '72%' 
+              }}
             >
-              <img 
-                src="https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg" 
-                alt="Door" 
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center' }}
-              />
-            </motion.div>
+              {/* The Door: Swings inward on the left hinge */}
+              <motion.div 
+                style={{ rotateY: doorRotateY }}
+                className="absolute inset-0 w-full h-full overflow-hidden origin-left shadow-2xl"
+              >
+                <img 
+                  src="https://www.unowindows.co.nz/hubfs/Website%20Assets/TWD%20September%202020/Images/EntryDoor1.jpg" 
+                  alt="Door" 
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: 'center' }}
+                />
+              </motion.div>
+            </div>
           </div>
         </motion.div>
         {/* Scroll Prompt */}
