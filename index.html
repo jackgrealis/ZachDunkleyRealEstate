@@ -268,8 +268,8 @@
         </header>
 
         <div class="hero-text">
-            <h2>Find Your Perfect Property</h2>
-            <p>Fill out the form below and I'll reach out within 2 hours to discuss your property needs.</p>
+            <h2>Let's Find Your Next Place</h2>
+            <p>Drop your details below and I'll get back to you within a couple hours. No pressure, just genuine conversations about what you're looking for.</p>
         </div>
 
         <div class="form-container">
@@ -278,36 +278,36 @@
 
             <form name="contact" method="POST" netlify>
                 <div class="form-group">
-                    <label for="name" class="required">Full Name</label>
+                    <label for="name" class="required">Your Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Best number to reach you">
+                    <label for="phone">Phone (optional)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0272278847">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Or your email address">
+                    <label for="email">Email (optional)</label>
+                    <input type="email" id="email" name="email" placeholder="z.dunkley@harcourts.co.nz">
                 </div>
 
                 <div class="form-group">
-                    <label for="interest" class="required">What brings you here?</label>
+                    <label for="interest" class="required">What are you looking for?</label>
                     <select id="interest" name="property_interest" required>
-                        <option value="">-- Select an option --</option>
-                        <option value="Buying">Buying a property</option>
-                        <option value="Selling">Selling a property</option>
-                        <option value="Renting">Renting a property</option>
+                        <option value="">-- Select --</option>
+                        <option value="Buying">Looking to buy</option>
+                        <option value="Selling">Looking to sell</option>
+                        <option value="Renting">Looking to rent</option>
                         <option value="Investing">Investment property</option>
                         <option value="Just Exploring">Just exploring</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="timeline" class="required">Timeline</label>
+                    <label for="timeline" class="required">When are you looking to move?</label>
                     <select id="timeline" name="timeline" required>
-                        <option value="">-- Select a timeline --</option>
+                        <option value="">-- Select --</option>
                         <option value="ASAP">ASAP</option>
                         <option value="1-3 months">1-3 months</option>
                         <option value="3-6 months">3-6 months</option>
@@ -316,15 +316,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="message">What's most important to you?</label>
-                    <textarea id="message" name="message" placeholder="Price, timeline, location, or something else?"></textarea>
+                    <label for="message">Anything else I should know?</label>
+                    <textarea id="message" name="message" placeholder="Budget, must-haves, deal breakers, timing... whatever helps me understand what you're after"></textarea>
                 </div>
 
-                <button type="submit">Schedule with Me</button>
+                <button type="submit">Get Started</button>
             </form>
 
             <div class="contact-info-section">
-                <p style="margin-bottom: 15px; font-weight: 600; color: #003D82;">Prefer to reach out directly?</p>
+                <p style="margin-bottom: 15px; font-weight: 600; color: #003D82;">Want to reach me directly?</p>
                 <div class="contact-item">
                     <span>📞</span>
                     <div>
@@ -371,7 +371,7 @@
 
             if (!phone && !email) {
                 e.preventDefault();
-                errorMessage.textContent = 'Please provide either a phone number or email so I can contact you.';
+                errorMessage.textContent = 'Just need one way to reach you - either a phone number or email will do.';
                 errorMessage.classList.add('show');
                 return false;
             }
@@ -380,7 +380,7 @@
         // Netlify form submission handling
         form.addEventListener('submit', function(e) {
             setTimeout(() => {
-                successMessage.textContent = 'Thank you! I\'ll be in touch within 2 hours.';
+                successMessage.textContent = 'Done! I\'ll be in touch soon.';
                 successMessage.classList.add('show');
                 form.reset();
                 errorMessage.classList.remove('show');
