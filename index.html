@@ -152,10 +152,8 @@
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Wooden_placenta_bowl%2C_Maori%2C_New_Zealand%2C1890-1925_Wellcome_L0064825.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Eleanor_Roosevelt_in_Rotorua,_New_Zealand_-_NARA_-_195448.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Waimangu_geyser.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/6/67/NZL-rotorua-tepuia-geysir.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Whakarewarewa-geothermal-area-rotorua.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Wai-o-Tapu_Champagne_Pool_in_Rotorua_02.jpg" alt="Rotorua Scene">
     </aside>
 
     <!-- Central Content -->
@@ -164,22 +162,22 @@
       <!-- Contact Form Section -->
       <section class="contact-form">
         <h2 style="text-align: center; margin-bottom: 30px;">Contact Zach Dunkley</h2>
-        <form class="form-grid">
+        <form action="https://formspree.io/f/maqvveje" method="POST" class="form-grid">
           <div class="form-group">
             <label>Full Name *</label>
-            <input type="text" required placeholder="Your Name">
+            <input type="text" name="name" required placeholder="Your Name">
           </div>
           <div class="form-group">
             <label>Phone</label>
-            <input type="tel" placeholder="027...">
+            <input type="tel" name="phone" placeholder="027...">
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" placeholder="email@example.com">
+            <input type="email" name="email" placeholder="email@example.com">
           </div>
           <div class="form-group">
             <label>What are you looking for? *</label>
-            <select required>
+            <select name="interest" required>
               <option value="">-- Select --</option>
               <option value="Buying">Looking to buy</option>
               <option value="Selling">Looking to sell</option>
@@ -190,7 +188,7 @@
           </div>
           <div class="form-group full">
             <label>When are you looking to make a move? *</label>
-            <select required>
+            <select name="timeline" required>
               <option value="">-- Select --</option>
               <option value="ASAP">ASAP</option>
               <option value="1-3 months">1-3 months</option>
@@ -200,7 +198,7 @@
           </div>
           <div class="form-group full">
             <label>Anything else I should know?</label>
-            <textarea style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; min-height: 100px;" placeholder="Budget, must-haves..."></textarea>
+            <textarea name="message" style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; min-height: 100px;" placeholder="Budget, must-haves..."></textarea>
           </div>
           <div class="form-group full">
             <button type="submit" class="submit-btn">Send Message</button>
