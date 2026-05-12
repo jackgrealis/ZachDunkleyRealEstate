@@ -40,14 +40,14 @@
         justify-content: center;
         max-width: 1400px;
         margin: 0 auto;
-        min-height: calc(100vh - var(--header-height));
+        align-items: stretch; /* Makes sidebars stretch to match content height */
     }
     .sidebar {
         width: var(--sidebar-width);
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px 0;
+        padding: 30px 0;
         gap: var(--sidebar-spacing);
         background: #f4f7f9;
     }
@@ -147,27 +147,14 @@
     <!-- Left Sidebar -->
     <aside class="sidebar">
       <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="Zach Dunkley">
-      <!-- Repeat Set 1 -->
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
-      <!-- Repeat Set 2 -->
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
-      <!-- Repeat Set 3 -->
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Whakarewarewa-geothermal-area-rotorua.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Wai-o-Tapu_Champagne_Pool_in_Rotorua_02.jpg" alt="Rotorua Scene">
     </aside>
 
     <!-- Central Content -->
@@ -237,27 +224,15 @@
     <!-- Right Sidebar -->
     <aside class="sidebar">
       <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="Zach Dunkley">
-      <!-- Repeat Set 1 -->
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Steamy_landscape_at_Wai-O-Tapu_thermal_area_near_Rotorua_%286941545434%29.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Sleeping_Giant_%28137818093%29.jpeg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Waiotapu_Artist%27s_Palette%2C_%C2%AB_Champagne_pool_%C2%BBNouvelle_Z%C3%A9lande.jpeg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f4/%2200_0701_Waiotapu_Thermal_Area%2C_New_Zealand.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Waimangu_geyser.jpg" alt="Rotorua Scene">
       <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/6/67/NZL-rotorua-tepuia-geysir.jpg" alt="Rotorua Scene">
-      <!-- Repeat Set 2 -->
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Steamy_landscape_at_Wai-O-Tapu_thermal_area_near_Rotorua_%286941545434%29.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Sleeping_Giant_%28137818093%29.jpeg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Waiotapu_Artist%27s_Palette%2C_%C2%AB_Champagne_pool_%C2%BBNouvelle_Z%C3%A9lande.jpeg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f4/%2200_0701_Waiotapu_Thermal_Area%2C_New_Zealand.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Waimangu_geyser.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/6/67/NZL-rotorua-tepuia-geysir.jpg" alt="Rotorua Scene">
-      <!-- Repeat Set 3 -->
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Steamy_landscape_at_Wai-O-Tapu_thermal_area_near_Rotorua_%286941545434%29.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Sleeping_Giant_%28137818093%29.jpeg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Waiotapu_Artist%27s_Palette%2C_%C2%AB_Champagne_pool_%C2%BBNouvelle_Z%C3%A9lande.jpeg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f4/%2200_0701_Waiotapu_Thermal_Area%2C_New_Zealand.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Waimangu_geyser.jpg" alt="Rotorua Scene">
-      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/6/67/NZL-rotorua-tepuia-geysir.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
     </aside>
   </div>
 
