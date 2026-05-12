@@ -1,391 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zach Dunkley Real Estate - Contact & Booking</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harcourts Rotorua - zach</title>
+  <style>
+    :root {
+        --harcourts-blue: #00AEEF;
+        --sidebar-width: 100px;
+        --sidebar-img-radius: 8px;
+        --sidebar-spacing: 15px;
+        --header-height: 80px;
+        --text-dark: #003468;
+        --accent-blue: #005c9a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: #f4f7f9;
+        color: #333;
+    }
+    .header {
+        background: var(--harcourts-blue);
+        color: #fff;
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        font-weight: bold;
+        font-size: 2.2rem;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .layout {
+        display: flex;
+        justify-content: center;
+        max-width: 1400px;
+        margin: 0 auto;
+        min-height: calc(100vh - var(--header-height));
+    }
+    .sidebar {
+        width: var(--sidebar-width);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: var(--sidebar-spacing);
+        background: #f4f7f9;
+    }
+    .sidebar img.main-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--harcourts-blue);
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .sidebar img.r-image {
+        width: 80px;
+        height: 120px;
+        border-radius: var(--sidebar-img-radius);
+        object-fit: cover;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .main-content {
+        flex: 1;
+        max-width: 800px;
+        background: #fff;
+        margin: 30px 20px;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        line-height: 1.7;
+    }
+    h1, h2 { color: var(--text-dark); margin-bottom: 20px; }
+    h1 { font-size: 2.4rem; line-height: 1.2; }
+    h2 { font-size: 1.8rem; margin-top: 30px; }
+    p { margin-bottom: 20px; font-size: 1.1rem; }
+    strong { color: var(--accent-blue); }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f8f7f3 0%, #f0ede5 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #003D82 0%, #002752 100%);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.2);
-        }
-
-        header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            font-size: 18px;
-            font-weight: 300;
-            opacity: 0.95;
-        }
-
-        .hero-text {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .hero-text h2 {
-            font-size: 24px;
-            color: #003D82;
-            margin-bottom: 12px;
-        }
-
-        .hero-text p {
-            font-size: 16px;
-            color: #666;
-        }
-
-        .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #003D82;
-            font-size: 14px;
-        }
-
-        .required::after {
-            content: " *";
-            color: #E74C3C;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0ddd5;
-            border-radius: 6px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background-color: #fafafa;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #003D82;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(0, 61, 130, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .contact-info-section {
-            background: #f8f7f3;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 20px;
-            border-left: 4px solid #003D82;
-        }
-
-        .contact-info-section p {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .contact-info-section strong {
-            color: #003D82;
-        }
-
-        .contact-item {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-item span {
-            margin-right: 12px;
-            font-size: 18px;
-        }
-
-        .error-message {
-            display: none;
-            background-color: #fee;
-            color: #c33;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border-left: 4px solid #c33;
-            font-size: 14px;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, #003D82 0%, #002752 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0, 61, 130, 0.3);
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 61, 130, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .footer-links {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0ddd5;
-        }
-
-        .footer-links a {
-            display: inline-block;
-            margin: 0 12px;
-            color: #003D82;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #E74C3C;
-        }
-
-        .success-message {
-            display: none;
-            background-color: #efe;
-            color: #3a3;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3a3;
-            font-size: 14px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            header {
-                padding: 30px 15px;
-            }
-
-            header h1 {
-                font-size: 24px;
-            }
-
-            header p {
-                font-size: 16px;
-            }
-
-            .form-container {
-                padding: 25px;
-            }
-
-            .hero-text h2 {
-                font-size: 20px;
-            }
-
-            .footer-links a {
-                display: block;
-                margin: 8px 0;
-            }
-        }
-    </style>
+    @media (max-width: 1100px) {
+        .sidebar { width: 70px; }
+        .sidebar img.main-photo, .sidebar img.r-image { width: 60px; }
+        .sidebar img.r-image { height: 90px; }
+    }
+    @media (max-width: 768px) {
+        .sidebar { display: none; }
+        .main-content { margin: 20px; padding: 25px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Zach Dunkley</h1>
-            <p>Real Estate - Rotorua</p>
-        </header>
 
-        <div class="hero-text">
-            <h2>Let's Find Your Next Place</h2>
-            <p>Drop your details below and I'll get back to you within a couple hours. No pressure, just genuine conversations about what you're looking for.</p>
-        </div>
+  <div class="header">zach</div>
 
-        <div class="form-container">
-            <div class="error-message" id="errorMessage"></div>
-            <div class="success-message" id="successMessage"></div>
+  <div class="layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="zach">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Whakarewarewa-geothermal-area-rotorua.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Wai-o-Tapu_Champagne_Pool_in_Rotorua_02.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Waiotapu_Thermal_Area_Lower_Champagne_Pool.jpg" alt="Rotorua Scene">
+    </aside>
 
-            <form name="contact" method="POST" netlify>
-                <div class="form-group">
-                    <label for="name" class="required">Your Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
+    <!-- Central Content -->
+    <main class="main-content">
+      <h1>Your Rotorua <strong>Real Estate Specialists</strong></h1>
+      <p>We are an award-winning real estate company with an experienced team of real estate agents, property managers, and administrators to assist with your buying, selling, property management or commercial property needs. Our team are regularly involved in our community and community events, and it is with a sense of pride that we call Rotorua our home. We just love living and working in this vibrant paradise.</p>
+      <p><strong>Contact us today to experience the Harcourts difference.</strong></p>
 
-                <div class="form-group">
-                    <label for="phone">Phone (optional)</label>
-                    <input type="tel" id="phone" name="phone" placeholder="0272278847">
-                </div>
+      <h2>Why Harcourts Rotorua?</h2>
+      <p>Welcome to Harcourts Real Estate Rotorua, your premier destination for all your real estate needs in the vibrant community of Rotorua, New Zealand. As your trusted real estate agents in Rotorua, we are committed to providing unparalleled service and expertise to help you navigate the local property market with confidence. Whether you're buying, selling, or seeking a property appraisal in Rotorua, our experienced team is here to assist you every step of the way. With a deep understanding of the real estate Rotorua landscape, we pride ourselves on delivering personalized solutions tailored to meet your unique needs and goals. When you choose Harcourts Rotorua, you're not just getting a real estate agent; you're gaining a dedicated partner invested in your success.</p>
+      <p>At Harcourts Rotorua, we understand that property appraisals are a crucial step in the buying or selling process. That's why we offer comprehensive property appraisal services in Rotorua to help you determine the true value of your home or prospective investment. Our team of expert real estate agents in Rotorua utilizes industry-leading tools and market insights to provide accurate and reliable property valuations tailored to your specific property and circumstances. Whether you're looking to sell your home or curious about the current market value of a property, our skilled agents are here to provide you with the information you need to make informed decisions.</p>
+      <p>When it comes to finding a reputable real estate agent in Rotorua, look no further than Harcourts Rotorua. With a proven track record of success and a dedication to excellence, our team of experienced agents is committed to delivering exceptional results for our clients. Whether you're a first-time homebuyer, seasoned investor, or looking to sell your property, our knowledgeable agents have the expertise and resources to help you achieve your real estate goals. At Harcourts Rotorua, we believe in building long-lasting relationships based on trust, integrity, and exceptional service.</p>
+      <p>In conclusion, Harcourts Rotorua is your go-to destination for all your real estate needs in Rotorua, New Zealand. From property appraisals to buying and selling, our dedicated team of real estate agents is here to provide you with unparalleled service and expertise every step of the way. Trust Harcourts Rotorua to be your partner in achieving your real estate goals, and let us help you unlock the full potential of your property investments.</p>
+    </main>
 
-                <div class="form-group">
-                    <label for="email">Email (optional)</label>
-                    <input type="email" id="email" name="email" placeholder="z.dunkley@harcourts.co.nz">
-                </div>
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+      <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="zach">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Redwoods_Forest_Rotorua_in_winter.JPG" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Te_Puia_Pohutu_geyser.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/1/14/Lake_Rotorua_Mokoia_island_2006.jpg" alt="Rotorua Scene">
+    </aside>
+  </div>
 
-                <div class="form-group">
-                    <label for="interest" class="required">What are you looking for?</label>
-                    <select id="interest" name="property_interest" required>
-                        <option value="">-- Select --</option>
-                        <option value="Buying">Looking to buy</option>
-                        <option value="Selling">Looking to sell</option>
-                        <option value="Renting">Looking to rent</option>
-                        <option value="Investing">Investment property</option>
-                        <option value="Just Exploring">Just exploring</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="timeline" class="required">When are you looking to move?</label>
-                    <select id="timeline" name="timeline" required>
-                        <option value="">-- Select --</option>
-                        <option value="ASAP">ASAP</option>
-                        <option value="1-3 months">1-3 months</option>
-                        <option value="3-6 months">3-6 months</option>
-                        <option value="Just browsing">Just browsing</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Anything else I should know?</label>
-                    <textarea id="message" name="message" placeholder="Budget, must-haves, deal breakers, timing... whatever helps me understand what you're after"></textarea>
-                </div>
-
-                <button type="submit">Get Started</button>
-            </form>
-
-            <div class="contact-info-section">
-                <p style="margin-bottom: 15px; font-weight: 600; color: #003D82;">Want to reach me directly?</p>
-                <div class="contact-item">
-                    <span>📞</span>
-                    <div>
-                        <strong>Phone:</strong> <a href="tel:0272278847" style="color: #E74C3C; text-decoration: none;">0272278847</a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span>💬</span>
-                    <div>
-                        <strong>WhatsApp:</strong> <a href="https://wa.me/64272278847" target="_blank" style="color: #E74C3C; text-decoration: none;">Chat with me</a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span>📧</span>
-                    <div>
-                        <strong>Email:</strong> <a href="mailto:z.dunkley@harcourts.co.nz" style="color: #E74C3C; text-decoration: none;">z.dunkley@harcourts.co.nz</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-links">
-            <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Follow me on social</p>
-            <a href="https://instagram.com/zachdunkleyrealestate" target="_blank">📸 Instagram</a>
-            <a href="https://facebook.com/people/Zach-Dunkley-Real-Estate/61579300034294/" target="_blank">👍 Facebook</a>
-        </div>
-    </div>
-
-    <script>
-        const form = document.querySelector('form');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-        const phoneInput = document.getElementById('phone');
-        const emailInput = document.getElementById('email');
-
-        form.addEventListener('submit', function(e) {
-            // Clear previous messages
-            errorMessage.classList.remove('show');
-            successMessage.classList.remove('show');
-
-            // Validate phone or email
-            const phone = phoneInput.value.trim();
-            const email = emailInput.value.trim();
-
-            if (!phone && !email) {
-                e.preventDefault();
-                errorMessage.textContent = 'Just need one way to reach you - either a phone number or email will do.';
-                errorMessage.classList.add('show');
-                return false;
-            }
-        });
-
-        // Netlify form submission handling
-        form.addEventListener('submit', function(e) {
-            setTimeout(() => {
-                successMessage.textContent = 'Done! I\'ll be in touch soon.';
-                successMessage.classList.add('show');
-                form.reset();
-                errorMessage.classList.remove('show');
-            }, 500);
-        });
-    </script>
 </body>
 </html>
