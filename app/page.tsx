@@ -6,13 +6,24 @@ export default function Home() {
   const leftImages = [
     "https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/e/e6/Whakarewarewa-geothermal-area-rotorua.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/5/52/Wai-o-Tapu_Champagne_Pool_in_Rotorua_02.jpg"
   ];
   
   const rightImages = [
-    "https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Steamy_landscape_at_Wai-O-Tapu_thermal_area_near_Rotorua_%286941545434%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Sleeping_Giant_%28137818093%29.jpeg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/19/Waiotapu_Artist%27s_Palette%2C_%C2%AB_Champagne_pool_%C2%BBNouvelle_Z%C3%A9lande.jpeg",
+    "https://upload.wikimedia.org/wikipedia/commons/f/f4/%2200_0701_Waiotapu_Thermal_Area%2C_New_Zealand.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/38/Waimangu_geyser.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/6/67/NZL-rotorua-tepuia-geysir.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg"
   ];
 
   return (
@@ -50,22 +61,22 @@ export default function Home() {
           {/* Contact Form Section (Top) */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-[#003468] mb-6 text-center">Contact Zach Dunkley</h2>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="https://formspree.io/f/maqvveje" method="POST" className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col">
                 <label className="font-semibold text-gray-700 mb-1">Full Name *</label>
-                <input type="text" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="Your Name" />
+                <input type="text" name="name" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="Your Name" />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold text-gray-700 mb-1">Phone</label>
-                <input type="tel" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="027..." />
+                <input type="tel" name="phone" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="027..." />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold text-gray-700 mb-1">Email</label>
-                <input type="email" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="email@example.com" />
+                <input type="email" name="email" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="email@example.com" />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold text-gray-700 mb-1">What are you looking for? *</label>
-                <select required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
+                <select name="interest" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
                   <option value="">-- Select --</option>
                   <option value="Buying">Looking to buy</option>
                   <option value="Selling">Looking to sell</option>
@@ -75,8 +86,8 @@ export default function Home() {
                 </select>
               </div>
               <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold text-gray-700 mb-1">When are you looking to move? *</label>
-                <select required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
+                <label className="font-semibold text-gray-700 mb-1">When are you looking to make a move? *</label>
+                <select name="timeline" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
                   <option value="">-- Select --</option>
                   <option value="ASAP">ASAP</option>
                   <option value="1-3 months">1-3 months</option>
@@ -86,16 +97,24 @@ export default function Home() {
               </div>
               <div className="flex flex-col md:col-span-2">
                 <label className="font-semibold text-gray-700 mb-1">Anything else I should know?</label>
-                <textarea className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] h-32" placeholder="Budget, must-haves..."></textarea>
+                <textarea name="message" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] h-32" placeholder="Budget, must-haves..."></textarea>
               </div>
-              <button className="md:col-span-2 bg-[#00AEEF] text-white py-4 rounded-lg font-bold text-lg hover:bg-[#0097d1] transition shadow-md uppercase tracking-wide">
+              <button type="submit" className="md:col-span-2 bg-[#00AEEF] text-white py-4 rounded-lg font-bold text-lg hover:bg-[#0097d1] transition shadow-md uppercase tracking-wide">
                 Send Message
               </button>
             </form>
           </section>
+          
+          {/* Added text for "Why Choose Zach Dunkley" before the Harcourts section */}
+          <div className="mb-12">
+             <h2 className="text-3xl font-bold text-[#003468] mb-4">Why Choose Zach Dunkley?</h2>
+             <p className="text-lg text-gray-700">
+               As a Rotorua born and raised professional, Zach Dunkley combines deep-rooted local knowledge with a modern, tech-savvy approach to real estate. Dedicated to building genuine relationships based on trust and integrity, Zach focuses on delivering exceptional results through smart digital marketing and a personalized touch. Whether you're a first-time buyer or a seasoned investor, Zach's commitment to the community and his passion for excellence ensure your property journey is seamless and successful.
+             </p>
+          </div>
 
           <hr className="my-12 border-gray-200" />
-
+          
           {/* Harcourts Feature Text Section (Bottom) */}
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#003468] mb-6">
@@ -114,19 +133,7 @@ export default function Home() {
             
             <div className="space-y-6 text-lg text-gray-700">
               <p>
-                Welcome to Harcourts Real Estate Rotorua, your premier destination for all your real estate needs in the vibrant community of Rotorua, New Zealand. As your trusted real estate agents in Rotorua, we are committed to providing unparalleled service and expertise to help you navigate the local property market with confidence. Whether you're buying, selling, or seeking a property appraisal in Rotorua, our experienced team is here to assist you every step of the way. With a deep understanding of the real estate Rotorua landscape, we pride ourselves on delivering personalized solutions tailored to meet your unique needs and goals. When you choose Harcourts Rotorua, you're not just getting a real estate agent; you're gaining a dedicated partner invested in your success.
-              </p>
-              
-              <p>
-                At Harcourts Rotorua, we understand that property appraisals are a crucial step in the buying or selling process. That's why we offer comprehensive property appraisal services in Rotorua to help you determine the true value of your home or prospective investment. Our team of expert real estate agents in Rotorua utilizes industry-leading tools and market insights to provide accurate and reliable property valuations tailored to your specific property and circumstances. Whether you're looking to sell your home or curious about the current market value of a property, our skilled agents are here to provide you with the information you need to make informed decisions.
-              </p>
-              
-              <p>
-                When it comes to finding a reputable real estate agent in Rotorua, look no further than Harcourts Rotorua. With a proven track record of success and a dedication to excellence, our team of experienced agents is committed to delivering exceptional results for our clients. Whether you're a first-time homebuyer, seasoned investor, or looking to sell your property, our knowledgeable agents have the expertise and resources to help you achieve your real estate goals. At Harcourts Rotorua, we believe in building long-lasting relationships based on trust, integrity, and exceptional service.
-              </p>
-              
-              <p>
-                In conclusion, Harcourts Rotorua is your go-to destination for all your real estate needs in Rotorua, New Zealand. From property appraisals to buying and selling, our dedicated team of real estate agents is here to provide you with unparalleled service and expertise every step of the way. Trust Harcourts Rotorua to be your partner in achieving your real estate goals, and let us help you unlock the full potential of your property investments.
+                Harcourts Rotorua is an award-winning real estate company comprising a highly experienced team of agents, property managers, and administrators. With a proven track record of success and a deep understanding of the local landscape, we provide unparalleled service and comprehensive property appraisals to help you unlock the full potential of your investments. When you choose Harcourts Rotorua, you gain a dedicated partner invested in your success and committed to delivering exceptional results across the region.
               </p>
             </div>
           </section>
