@@ -14,8 +14,8 @@ export default function Home() {
     "https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/e/e6/Whakarewarewa-geothermal-area-rotorua.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/5/52/Wai-o-Tapu_Champagne_Pool_in_Rotorua_02.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Steamy_landscape_at_Wai-O-Tapu_thermal_area_near_Rotorua_%286941545434%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Sleeping_Giant_%28137818093%29.jpeg",
   ];
   
   const rightImages = [
