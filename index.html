@@ -7,6 +7,9 @@
   <style>
     :root {
         --harcourts-blue: #00AEEF;
+        --sidebar-width: 110px;
+        --sidebar-img-radius: 8px;
+        --sidebar-spacing: 15px;
         --header-height: 80px;
         --text-dark: #003468;
         --accent-blue: #005c9a;
@@ -38,6 +41,40 @@
         max-width: 1400px;
         margin: 0 auto;
         min-height: calc(100vh - var(--header-height));
+    }
+    .sidebar {
+        width: var(--sidebar-width);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: var(--sidebar-spacing);
+        background: #f4f7f9;
+        position: sticky;
+        top: var(--header-height);
+        height: calc(100vh - var(--header-height));
+        overflow-y: auto;
+        scrollbar-width: none; /* Firefox */
+    }
+    .sidebar::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    .sidebar img.main-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--harcourts-blue);
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .sidebar img.r-image {
+        width: 80px;
+        height: 142px; /* 9:16 ratio */
+        border-radius: var(--sidebar-img-radius);
+        object-fit: cover;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .main-content {
         flex: 1;
@@ -97,34 +134,16 @@
     }
     .submit-btn:hover { background: #0097d1; }
 
-    /* Gallery Section */
-    .gallery {
-        margin-top: 50px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 15px;
-        padding-top: 30px;
-        border-top: 2px solid #eee;
+    @media (max-width: 1100px) {
+        .sidebar { width: 70px; }
+        .sidebar img.main-photo, .sidebar img.r-image { width: 60px; }
+        .sidebar img.r-image { height: 106px; }
     }
-    .gallery-item {
-        width: 100%;
-        aspect-ratio: 9/16;
-        object-fit: cover;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .gallery-item.profile {
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        border: 4px solid var(--harcourts-blue);
-    }
-
     @media (max-width: 768px) {
+        .sidebar { display: none; }
         .main-content { margin: 20px; padding: 25px; }
         .form-grid { grid-template-columns: 1fr; }
         .form-group.full { grid-column: span 1; }
-        .gallery { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -133,6 +152,18 @@
   <div class="header">Zach Dunkley</div>
 
   <div class="layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="Zach Dunkley">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
+    </aside>
+
+    <!-- Central Content -->
     <main class="main-content">
       
       <!-- Contact Form Section -->
@@ -194,19 +225,18 @@
         <h2>Why Harcourts Rotorua?</h2>
         <p>Harcourts Rotorua is an award-winning real estate company comprising a highly experienced team of agents, property managers, and administrators. With a proven track record of success and a deep understanding of the local landscape, we provide unparalleled service and comprehensive property appraisals to help you unlock the full potential of your investments. When you choose Harcourts Rotorua, you gain a dedicated partner invested in your success and committed to delivering exceptional results across the region.</p>
       </section>
-
-      <!-- Gallery Section at Bottom -->
-      <div class="gallery">
-        <img class="gallery-item profile" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="Zach Dunkley">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
-        <img class="gallery-item" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
-      </div>
-
     </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+      <img class="main-photo" src="https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp" alt="Zach Dunkley">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Redwoods_Forest_Rotorua_12.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Redwoods_Forest_Rotorua_09.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Rotorua_Lakes_Council_Building%2C_Rotorua.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Wait%C5%ABkei_sculpture_Rotorua_%28Government_Gardens%29.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg" alt="Rotorua Scene">
+      <img class="r-image" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg" alt="Rotorua Scene">
+    </aside>
   </div>
 
 </body>
