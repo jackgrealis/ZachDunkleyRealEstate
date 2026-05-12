@@ -1,6 +1,10 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 
 export default function Home() {
+  const [status, setStatus] = useState('idle'); // idle, submitting, success, error
+
   const userPhoto = "https://assets.cloudhi.io/system/team-members/98e72742-1520-499c-b483-e4b7583c2b81.jpg.webp";
   
   const leftImages = [
@@ -25,6 +29,31 @@ export default function Home() {
     "https://upload.wikimedia.org/wikipedia/commons/9/99/Maori_stone_sculpture%2C_Rotorua_Museum.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/7/72/Mosaic_Gallery%2C_Rotorua_Art_Village.jpg"
   ];
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const formData = new FormData(e.target);
+    
+    try {
+      const response = await fetch('https://formspree.io/f/maqvveje', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#f4f7f9] font-sans">
@@ -61,51 +90,67 @@ export default function Home() {
           {/* Contact Form Section (Top) */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-[#003468] mb-6 text-center">Contact Zach Dunkley</h2>
-            <form action="https://formspree.io/f/maqvveje" method="POST" className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex flex-col">
-                <label className="font-semibold text-gray-700 mb-1">Full Name *</label>
-                <input type="text" name="name" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="Your Name" />
+            
+            {status === 'success' ? (
+              <div className="text-center py-10 bg-green-50 rounded-lg border-2 border-green-200">
+                <p className="text-xl font-bold text-green-700">Message Sent!</p>
+                <p className="text-green-600">Thanks for reaching out. I'll be in touch soon!</p>
               </div>
-              <div className="flex flex-col">
-                <label className="font-semibold text-gray-700 mb-1">Phone</label>
-                <input type="tel" name="phone" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="027..." />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold text-gray-700 mb-1">Email</label>
-                <input type="email" name="email" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="email@example.com" />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold text-gray-700 mb-1">What are you looking for? *</label>
-                <select name="interest" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
-                  <option value="">-- Select --</option>
-                  <option value="Buying">Looking to buy</option>
-                  <option value="Selling">Looking to sell</option>
-                  <option value="Renting">Looking to rent</option>
-                  <option value="Investing">Investment property</option>
-                  <option value="Just Exploring">Just exploring</option>
-                </select>
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold text-gray-700 mb-1">When are you looking to make a move? *</label>
-                <select name="timeline" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
-                  <option value="">-- Select --</option>
-                  <option value="ASAP">ASAP</option>
-                  <option value="1-3 months">1-3 months</option>
-                  <option value="3-6 months">3-6 months</option>
-                  <option value="Just browsing">Just browsing</option>
-                </select>
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold text-gray-700 mb-1">Anything else I should know?</label>
-                <textarea name="message" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] h-32" placeholder="Budget, must-haves..."></textarea>
-              </div>
-              <button type="submit" className="md:col-span-2 bg-[#00AEEF] text-white py-4 rounded-lg font-bold text-lg hover:bg-[#0097d1] transition shadow-md uppercase tracking-wide">
-                Send Message
-              </button>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col">
+                  <label className="font-semibold text-gray-700 mb-1">Full Name *</label>
+                  <input type="text" name="name" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="Your Name" />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold text-gray-700 mb-1">Phone</label>
+                  <input type="tel" name="phone" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="027..." />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold text-gray-700 mb-1">Email</label>
+                  <input type="email" name="email" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF]" placeholder="email@example.com" />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold text-gray-700 mb-1">What are you looking for? *</label>
+                  <select name="interest" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
+                    <option value="">-- Select --</option>
+                    <option value="Buying">Looking to buy</option>
+                    <option value="Selling">Looking to sell</option>
+                    <option value="Renting">Looking to rent</option>
+                    <option value="Investing">Investment property</option>
+                    <option value="Just Exploring">Just exploring</option>
+                  </select>
+                </div>
+                <div className="flex flex-col md:col-span-2">
+                  <label className="font-semibold text-gray-700 mb-1">When are you looking to make a move? *</label>
+                  <select name="timeline" required className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white">
+                    <option value="">-- Select --</option>
+                    <option value="ASAP">ASAP</option>
+                    <option value="1-3 months">1-3 months</option>
+                    <option value="3-6 months">3-6 months</option>
+                    <option value="Just browsing">Just browsing</option>
+                  </select>
+                </div>
+                <div className="flex flex-col md:col-span-2">
+                  <label className="font-semibold text-gray-700 mb-1">Anything else I should know?</label>
+                  <textarea name="message" className="p-3 border rounded-lg outline-none focus:ring-2 focus:ring-[#00AEEF] h-32" placeholder="Budget, must-haves..."></textarea>
+                </div>
+                <button 
+                  type="submit" 
+                  disabled={status === 'submitting'}
+                  className={`md:col-span-2 text-white py-4 rounded-lg font-bold text-lg transition shadow-md uppercase tracking-wide ${status === 'submitting' ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#00AEEF] hover:bg-[#0097d1]'}`}
+                >
+                  {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                </button>
+                {status === 'error' && (
+                  <p className="md:col-span-2 text-red-500 text-center text-sm font-medium">
+                    Oops! There was a problem. Please try again.
+                  </p>
+                )}
+              </form>
+            )}
           </section>
           
-          {/* Added text for "Why Choose Zach Dunkley" before the Harcourts section */}
           <div className="mb-12">
              <h2 className="text-3xl font-bold text-[#003468] mb-4">Why Choose Zach Dunkley?</h2>
              <p className="text-lg text-gray-700">
