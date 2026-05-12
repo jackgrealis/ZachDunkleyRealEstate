@@ -1,0 +1,12 @@
+[build]
+  command = "echo 'Build complete'"
+  publish = "."
+
+[dev]
+  command = "npx http-server"
+  port = 8080
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
